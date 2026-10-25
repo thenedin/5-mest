@@ -354,14 +354,19 @@ section{padding:56px 0;position:relative}
 .cta-list li::before{content:"✓";flex:0 0 24px;height:24px;border-radius:50%;background:#D4F86B;color:#0A0A0C;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
 .cta-word{font-size:17px;margin:0 0 4px}
 .word{display:inline-block;background:#D4F86B;color:#0A0A0C;font-weight:800;padding:3px 14px;border-radius:999px;margin-left:4px}
-.cta-btns{display:grid;gap:12px;margin:18px 0 14px}
+.cta-btns{display:grid;gap:12px;margin:14px 0 14px}
 @media(min-width:560px){.cta-btns{grid-template-columns:1fr 1fr}}
 .btn-cta{background:#D4F86B;color:#0A0A0C;box-shadow:0 12px 30px rgba(212,248,107,.22)}
 .btn-cta:hover{transform:translateY(-2px);background:#C6EC5A}
 .btn-cta2{background:transparent;color:var(--ink);border:2px solid var(--line)}
 .btn-cta2:hover{border-color:var(--ink)}
-.msgbox{background:var(--cta-box);border-radius:16px;padding:14px 16px;font-size:15px}
-.msgbox b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.msgbox{background:var(--cta-box);border-radius:16px;padding:14px 16px;font-size:15px;margin-top:16px}
+.msgbox>b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.how{margin:0 0 12px;padding-left:22px;display:grid;gap:6px;font-size:15px;line-height:1.4}
+.how li::marker{color:#D4F86B;font-weight:800}
+.how b{color:#D4F86B}
+.msgprev{border-top:1px dashed var(--line);padding-top:10px;font-size:14px;color:var(--muted)}
+.msgprev span{color:var(--ink);font-weight:600}
 .fit{font-size:14px;color:var(--muted);margin:14px 0 0}
 
 footer{padding:28px 0 100px;font-size:14px;color:var(--muted);text-align:center}
@@ -734,11 +739,19 @@ footer{padding:28px 0 100px;font-size:14px;color:var(--muted);text-align:center}
           <li>Созвон на 30 минут — разберём твой блог вместе</li>
         </ul>
         <p class="cta-word">Напиши мне слово <span class="word">разбор</span></p>
+        <div class="msgbox">
+          <b>Как написать за 10 секунд</b>
+          <ol class="how">
+            <li>Нажми кнопку ниже — сообщение <b>скопируется</b> и откроется чат</li>
+            <li>В чате зажми поле ввода и нажми <b>«Вставить»</b></li>
+            <li>Отправь</li>
+          </ol>
+          <div class="msgprev">Твоё сообщение: <span id="msgText">Разбор</span></div>
+        </div>
         <div class="cta-btns">
           <a class="btn btn-cta" href="https://t.me/thenedin" target="_blank" rel="noopener" data-copy>Написать в Telegram →</a>
           <a class="btn btn-cta2" href="https://ig.me/m/thened1n" target="_blank" rel="noopener" data-copy>Написать в Instagram</a>
         </div>
-        <div class="msgbox"><b>Твоё сообщение — скопируется само</b><span id="msgText">Разбор</span></div>
         <p class="fit">Подходит, если ты продаёшь обучение или наставничество. Даже если дальше не будем работать, уйдёшь с понятным планом.</p>
       </div>
     </div>
@@ -906,7 +919,7 @@ footer{padding:28px 0 100px;font-size:14px;color:var(--muted);text-align:center}
 
   /* «разбор»: копируем итог и открываем мессенджер */
   var toast=document.getElementById('toast'),tt;
-  function showToast(s){toast.textContent=s;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},2600)}
+  function showToast(s){toast.textContent=s;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},4200)}
   function copy(text){
     if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(text)}
     return new Promise(function(res,rej){var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')?res():rej()}catch(e){rej(e)}document.body.removeChild(ta)});
@@ -914,7 +927,7 @@ footer{padding:28px 0 100px;font-size:14px;color:var(--muted);text-align:center}
   document.querySelectorAll('[data-copy]').forEach(function(a){
     a.addEventListener('click',function(){
       var m=document.getElementById('msgText').textContent;
-      copy(m).then(function(){showToast('Скопировал: «'+m+'» — вставь в сообщение')}).catch(function(){});
+      copy(m).then(function(){showToast('Сообщение скопировано ✓ В чате зажми поле ввода и нажми «Вставить»')}).catch(function(){});
     });
   });
 
